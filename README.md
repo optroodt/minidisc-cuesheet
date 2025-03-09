@@ -23,10 +23,10 @@ Before I go into details, these are the high level steps in order to get to a ga
 2. Record the single `wav` file to your MD using Web MiniDisc Pro.
 3. Convert the cue sheet to breakpoints using `cuebreakpoints image.cue > image_times.cue` (It will be missing the `00:00.00`. which marks the first track)
 4. Using WMD homebrew mode, download the TOC.
-5. Update the track marks in the TOC using [toc.py](https://github.com/Havrevoll/md/blob/main/toc.py), `python toc.py image_times.cue toc.bin`
+5. Update the track marks in the TOC `python toc_marks.py image_times.cue toc.bin`
 6. Once done, pull out the USB cable, then remove power. The track marks should now be set.
 7. Using WMD, download the titles (still empty), which will be a file called `Disc.csv`
-8. Update the `Disc.csv` using `update_toc.py` and the original `cue` that includes titles. `python update_toc.py --csv Disc.csv --cue image.cue --outfile titles.csv`
+8. Update the `Disc.csv` using `update_titles.py` and the original `cue` that includes titles. `python update_titles.py --csv Disc.csv --cue image.cue --outfile titles.csv`
 9. Upload the newly generated `titles.csv` to the disc using WMD.
 
 ## Ripping a cd on Mac.
@@ -37,8 +37,3 @@ cdrdao scanbus # to find the device name, up to the colon (:)
 cdrdao read-cd --rspeed 8 --datafile image.bin --driver generic-mmc:0x20000 --device "IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS14@14600000/USB to ATA/ATAPI bridge@14600000/MSC Bulk-Only Transfer@0/IOUSBMassStorageInterfaceNub/IOUSBMassStorageDriverNub/IOUSBMassStorageDriver/IOSCSILogicalUnitNub@0/IOSCSIPeripheralDeviceType05/IODVDServices" --read-raw image.toc
 toc2cue image.toc image.cue # convert the toc to cue
 ```
-
-## TODO
-- Automatically fix the missing `00:00.00` entry in the `image_times.cue`
-- Put a copy of `toc.py` in this repository.
-- Fix `update_toc.py` so that it correctly matches track `INDEX` statements and rename it.

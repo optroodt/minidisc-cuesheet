@@ -15,9 +15,9 @@ def get_arguments():
     parser = argparse.ArgumentParser(
         description="Update a Web MiniDisc Pro toc-csv with titles from a cue-sheet."
     )
-    parser.add_argument("--csv", default=None, help="The TOC csv you want to update.")
+    parser.add_argument("--csv", required=True, help="The TOC csv you want to update.")
     parser.add_argument(
-        "--cue", default=None, help="The cue you want to read titles from."
+        "--cue", required=True, help="The cue you want to read titles from."
     )
     parser.add_argument(
         "--outfile", default="output.csv", help="File to write the result to."
@@ -29,10 +29,10 @@ def get_arguments():
 def run():
     args = get_arguments()
 
-    tracks = []
-    artists = set()
+    tracks: list[Track] = []
+    artists: set[str] = set()
     with pathlib.Path(args.cue).open("r") as cue_fh:
-        album_title = ((next(cue_fh)).split(' "')[1]).strip().strip('"')
+        album_title: str = ((next(cue_fh)).split(' "')[1]).strip().strip('"')
         while True:
             try:
                 line = next(cue_fh)
@@ -40,9 +40,9 @@ def run():
                 break
             t = Track()
             while True:
-                if "INDEX 01" in line:
+                if "INDEX 01" in line:  # No more useful track info after this
                     tracks.append(t)
-                    t = Track()
+                    t: Track = Track()
                     break
 
                 if "TRACK " in line:
