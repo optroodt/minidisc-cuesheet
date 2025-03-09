@@ -40,7 +40,7 @@ def run():
                 break
             t = Track()
             while True:
-                if "INDEX " in line:
+                if "INDEX 01" in line:
                     tracks.append(t)
                     t = Track()
                     break
