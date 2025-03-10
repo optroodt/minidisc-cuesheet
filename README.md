@@ -21,7 +21,7 @@ brew install cdrdao cuetools
 Before I go into details, these are the high level steps in order to get to a gapless recording with trackmarks:
 1. Source a `bin/cue` or `wav/cue` pair for what you want to record. If it's a `bin/cue` you can convert the `bin` file to `wav` using [XLD](https://sourceforge.net/projects/xld/) for example. See below if you want to rip a CD on Mac.
 2. Record the single `wav` file to your MD using Web MiniDisc Pro.
-3. Convert the cue sheet to breakpoints using `cuebreakpoints image.cue > image_times.cue` (It will be missing the `00:00.00`. which marks the first track)
+3. Convert the cue sheet to breakpoints using `cuebreakpoints image.cue > image_times.cue` (It will be missing the `00:00.00` mark, which indicates the first track)
 4. Using WMD homebrew mode, download the TOC.
 5. Update the track marks in the TOC `python toc_marks.py image_times.cue toc.bin`
 6. Once done, pull out the USB cable, then remove power. The track marks should now be set.
